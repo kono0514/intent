@@ -170,7 +170,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                     intent.addCategory(it)
                 }
                 try {
-                    if (call.argument<Boolean>("chooser")!!) activity.startActivity(Intent.createChooser(intent, "Sharing"))
+                    if (call.argument<Boolean>("chooser")!!) activity.startActivity(Intent.createChooser(intent, call.argument<String>("chooserTitle") ?: "Sharing"))
                     else activity.startActivity(intent)
                 } catch (e: Exception) {
                     result.error("Error", e.toString(), null)
@@ -298,7 +298,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                             }
                         }
                     } else {
-                        if (call.argument<Boolean>("chooser")!!) activity.startActivityForResult(Intent.createChooser(intent, "Sharing"), activityIdentifierCode)
+                        if (call.argument<Boolean>("chooser")!!) activity.startActivityForResult(Intent.createChooser(intent, call.argument<String>("chooserTitle") ?: "Sharing"), activityIdentifierCode)
                         else activity.startActivityForResult(intent, activityIdentifierCode)
                     }
                 } catch (e: Exception) {
